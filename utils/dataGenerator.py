@@ -1,4 +1,5 @@
 import torch
+from torch.utils.data import TensorDataset
 import random
 
 def dataGenerator(sample_num = 10000, min_limit = -100, max_limit = 100):
@@ -16,7 +17,7 @@ def dataGenerator(sample_num = 10000, min_limit = -100, max_limit = 100):
             labels_tensor: a tensor of shape(sample_num, 1), where each line is the corresponding a+b.
     """
 
-    inputs_tensor = torch.rand(sample_num, 2, dtype = float32) * (max_limit - min_limit) + min_limit
+    inputs_tensor = torch.rand(sample_num, 2, dtype = torch.float32) * (max_limit - min_limit) + min_limit
     labels_tensor = inputs_tensor.sum(dim=1).unsqueeze(1)
 
-    return inputs_tensor, lables_tensor
+    return TensorDataset(inputs_tensor, labels_tensor)
