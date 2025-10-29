@@ -1,6 +1,7 @@
 from utils.train import train
-from utils.dataGenerator import dataGenerator
-from utils.datasetSplit import datasetSplit
+from utils.data_generator import dataGenerator
+from utils.dataset_split import datasetSplit
+from utils.save_weights import saveWeights
 from torch.utils.data import DataLoader
 from model.mlp import MLP
 import torch
@@ -21,7 +22,11 @@ def main():
     # model
     model = MLP()
 
+    # train model
     train(model, train_loader, device)
+
+    # save trained model
+    saveWeights(model)
 
 
 if __name__ == "__main__":
