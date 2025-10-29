@@ -1,7 +1,10 @@
-# from utils.train import train
+from utils.train import train
 from utils.dataGenerator import dataGenerator
 from utils.datasetSplit import datasetSplit
+from torch.utils.data import DataLoader
+from model.mlp import MLP
 import torch
+import torch.nn as nn
 
 def main():
 
@@ -12,11 +15,13 @@ def main():
     # prepare data
     dataset = dataGenerator()
     train_set, test_set = datasetSplit(dataset)
-    for data in train_set:
-        print(data)
+    train_loader = DataLoader(train_set, batch_size = 128, shuffle = True)
+    test_loader = DataLoader(test_set, batch_size = 128, shuffle = True)
 
-    print(dataset)
-    # print(test_set)
+    # model
+    model = MLP()
+
+    train(model, train_loader, device)
 
 
 if __name__ == "__main__":
